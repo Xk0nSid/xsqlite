@@ -36,8 +36,14 @@ var rootCmd = &cobra.Command{
 Supports basic SQL and table stuff.`,
 	// Uncomment the following line if your bare application
 	// has an action associated with it:
-	// Run: func(cmd *cobra.Command, args []string) {
-	// },
+	Run: func(cmd *cobra.Command, args []string) {
+		shell := NewShell()
+		returnCode, err := shell.Run()
+		if err != nil && returnCode > 0 {
+			fmt.Fprintf(shell.output, "System Error: %s\n", err)
+			os.Exit(returnCode)
+		}
+	},
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.
@@ -87,7 +93,7 @@ func initConfig() {
 	// If a config file is found, read it in.
 	err := viper.ReadInConfig()
 	if err != nil {
-		fmt.Printf("Unable to read config: %s\n", err)
-		fmt.Println("Switching to defaults")
+		// fmt.Printf("Unable to read config: %s\n", err)
+		// fmt.Println("Switching to defaults")
 	}
 }

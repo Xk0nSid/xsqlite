@@ -21,6 +21,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
+var versionNumber string
 var gitRevNumber string
 
 // versionCmd represents the version command
@@ -29,7 +30,7 @@ var versionCmd = &cobra.Command{
 	Short: "Print current version of xsqlite",
 	Long:  "",
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Printf("xsqlite v0.1.0-%s\n", gitRevNumber)
+		fmt.Printf("xsqlite %s-%s\n", versionNumber, gitRevNumber)
 	},
 }
 
